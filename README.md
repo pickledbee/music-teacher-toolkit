@@ -19,3 +19,12 @@ This prototype stores data in localStorage on each browser/device. It has **no a
 
 ## Roadmap
 Authentication, private per-teacher cloud storage, recurring calendar, invoices, payment reconciliation, and Stripe subscriptions.
+
+## Voice and check-photo entry
+- Click **Start speaking** and allow microphone access. Browser speech recognition support varies (Chrome is recommended).
+- Spoken student details are parsed into a confirmation form. Payments can also be dictated.
+- Upload a check image to attempt OCR of the amount, written date, and check number. The OCR engine loads from a third-party CDN and runs recognition in the browser; no check image is intentionally stored in the app.
+- **Always verify the check amount, student, and payment date before saving.** OCR can be inaccurate and written dates are not automatically applied.
+- Routing and account numbers are not extracted into the app.
+- This is not bank deposit, check processing, or automated reconciliation.
+- Voice recognition may use a browser/vendor speech service, so do not dictate sensitive personal or financial information without understanding your browser's privacy behavior.
