@@ -55,11 +55,10 @@ async function scanCheck(file){
   const amount=amountMatches[0]||'';
   const checkNo=(raw.match(/(?:check\\s*(?:no\\.?|number|#)\\s*[:#]?\\s*)(\\d{2,8})/i)||[])[1]||'';
   const date=(raw.match(/\\b(\\d{1,2}[\\/-]\\d{1,2}[\\/-]\\d{2,4})\\b/)||[])[1]||'';
-  document.getElementById('smartText').value='Payment by check'+(amount?' const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify(db,null,2)],{type:'application/json'}));a.href=url;a.download='music-teacher-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-async function restore(file){if(!file||!confirm('Replace all local records with this backup?'))return;try{const x=JSON.parse(await file.text());if(!['students','lessons','payments','assignments'].every(k=>Array.isArray(x[k])))throw Error('Invalid backup');db=x;save();render();alert('Backup restored')}catch(e){alert('Could not restore: '+e.message)}}render();
-</script></body></html>+amount:'')+(checkNo?', check number '+checkNo:'')+(date?', written date '+date:'');
+  document.getElementById('smartText').value='Payment by check'+(amount?' $'+amount:'')+(checkNo?', check number '+checkNo:'')+(date?', written date '+date:'');
   tab='Payments';render();interpretText();
-  const note=document.createElement('p');note.className='muted';note.textContent='OCR suggestions: amount '+(amount||'not found')+', check number '+(checkNo||'not found')+', written date '+(date||'not found')+'. The form uses today’s date until you verify/change it. Select the correct student and verify the amount against the actual check. Bank account and routing numbers are intentionally not captured or saved.';
+  const note=document.createElement('p');note.className='muted';
+  note.textContent='OCR suggestions: amount '+(amount||'not found')+', check number '+(checkNo||'not found')+', written date '+(date||'not found')+'. Confirm the student, amount and date before saving. Bank details are not recorded.';
   document.getElementById('smartReview').prepend(note);
  }catch(err){el.textContent='Could not read image: '+err.message+'. Enter the payment manually.'}
  finally{document.getElementById('checkPhoto').value=''}
